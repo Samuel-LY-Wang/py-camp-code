@@ -1,4 +1,4 @@
-#Snake
+#Pong
 from turtle import *
 from random import randint
 from paddle import Paddle

@@ -2,6 +2,8 @@
 from turtle import *
 from random import randint
 from player import Player
+from level import Level
+from car import CarSpawner
 import time
 
 STARTPOS=350
@@ -17,6 +19,8 @@ s.colormode(255)
 
 #object setup
 p=Player()
+l=Level()
+c=CarSpawner()
 
 #movement code
 s.onkey(p.up, "Up")
@@ -30,8 +34,16 @@ s.onkey(p.right, "d")
 
 game_running = True
 
-# while game_running:
-#     time.sleep(0.05)
-#     #do something
+while game_running:
+    time.sleep(0.05)
+    #detect if turtle has hit car
+
+    #detect if turtle hit edge
+    if p.y >= 290:
+        p.reinit()
+        l.level += 1
+        l.update()
+        c.clear()
+        #move to next level
 
 s.exitonclick()

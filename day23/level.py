@@ -6,9 +6,10 @@ class Level(Turtle):
         self.color("black")
         self.hideturtle()
         self.penup()
-        self.teleport(-290, 290)
-        self.update()
+        self.teleport(-290, 250)
         self.level = 1
+        self.update()
     def update(self):
-        update_txt = "Level: "+self.level
+        self.clear()
+        update_txt = "Level: "+str(self.level)
         self.write(update_txt, align="left", font=("Sans Serif", 20, "normal"))

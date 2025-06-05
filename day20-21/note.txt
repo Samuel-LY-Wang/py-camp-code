@@ -1,0 +1,4 @@
+snake.py, snake_main.py, food.py, and scoreboard.py were added days 20 and 21
+
+leaderboard functionality (from Scoreboard class self.highscore and self.highscore_time)
+this includes highscores.py

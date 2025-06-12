@@ -1,0 +1,3 @@
+Day 30 improved upon day 26 and day 29
+Day 26 improvements: added error handling, program now requires only alphabetic input rather than ignoring non-alphabetic inputs
+Day 29 improvements: added search functionality

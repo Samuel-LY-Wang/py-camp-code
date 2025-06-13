@@ -6,11 +6,7 @@ from email.mime.text import MIMEText
 import datetime
 import random
 # Email configuration
-PYTHON_MAIL_SERVER = "smtp.gmail.com"
-PYTHON_MAIL_PORT = 587
-PYTHON_MAIL_FROM = "wamsang69@gmail.com"
-PYTHON_MAIL_PASS = "vgzhljdpilelkkui"
-PYTHON_MAIL_TO = [
+TO = [
     "samuellywang@gmail.com",
     "25stu478@lexingtonma.org",
     "samwang@umass.edu",
@@ -25,22 +21,22 @@ with open("quotes.txt", "r") as f:
 def send_email(to_address, subject, body):
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = PYTHON_MAIL_FROM
+    msg['From'] = FROM
     msg['To'] = to_address
 
-    with smtplib.SMTP(PYTHON_MAIL_SERVER, PYTHON_MAIL_PORT) as server:
+    with smtplib.SMTP(SERVER, PORT) as server:
         server.starttls()
-        server.login(PYTHON_MAIL_FROM, PYTHON_MAIL_PASS)
-        server.sendmail(PYTHON_MAIL_FROM, to_address, msg.as_string())
+        server.login(FROM, PASS)
+        server.sendmail(FROM, to_address, msg.as_string())
         print(f"Email sent to {to_address}")
 cur_day = datetime.date.today()
 while True:
     if cur_day != datetime.date.today() and datetime.datetime.now().hour == 9: #send all the emails at 9 AM
         cur_day = datetime.date.today()
-        for recipient in PYTHON_MAIL_TO:
-            PYTHON_MAIL_SUBJECT = "A new day, a new email"
-            PYTHON_MAIL_BODY = f"Today is {datetime.datetime.now().strftime("%Y-%m-%d")}. Don't forget to check your calendar!\n\nToday's quote is:\n{random.choice(quotes).strip()}\n\nHave a great day!"
+        for recipient in TO:
+            SUBJECT = "A new day, a new email"
+            BODY = f"Today is {datetime.datetime.now().strftime("%Y-%m-%d")}. Don't forget to check your calendar!\n\nToday's quote is:\n{random.choice(quotes).strip()}\n\nHave a great day!"
             try:
-                send_email(recipient, PYTHON_MAIL_SUBJECT, PYTHON_MAIL_BODY)
+                send_email(recipient, SUBJECT, BODY)
             except Exception as e:
                 print(f"Failed to send email to {recipient}: {e}")

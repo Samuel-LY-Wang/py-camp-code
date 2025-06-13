@@ -3,16 +3,12 @@ import requests
 import geocoder
 import smtplib
 from email.mime.text import MIMEText
+from config import *
 
 g=geocoder.ip('me')
 [lat,lon]=g.latlng
 
-FROM="wamsang69@gmail.com"
 TO="samuellywang@gmail.com"
-SERVER = "smtp.gmail.com"
-PORT = 587
-PASS = "vgzhljdpilelkkui"
-
 
 EMAIL_EXT="mms.cricketwireless.net"
 
@@ -39,8 +35,7 @@ def text(message):
     except Exception as e:
         print(f"Failed to send email to {TO}: {e}")
 
-API_KEY="73f5a2ef8432c3f8afe22dc854be41fb"
-weather = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&cnt=5&appid={API_KEY}').json()['list']
+weather = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&cnt=5&appid={WEATHER_API_KEY}').json()['list']
 
 for forecast in weather:
     t=(int(forecast['dt_txt'][-8:-6])-4)%24

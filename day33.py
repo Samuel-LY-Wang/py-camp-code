@@ -4,12 +4,9 @@ import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 import time
+from config import *
 
-PYTHON_MAIL_SERVER = "smtp.gmail.com"
-PYTHON_MAIL_PORT = 587
-PYTHON_MAIL_FROM = "wamsang69@gmail.com"
-PYTHON_MAIL_TO = "samuellywang@gmail.com"
-PYTHON_MAIL_PASS = "vgzhljdpilelkkui"
+TO = "samuellywang@gmail.com"
 
 def compare(time1, time2):
     fmt = '%H:%M:%S'
@@ -20,13 +17,13 @@ def compare(time1, time2):
 def send_email(to_address, subject, body):
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = PYTHON_MAIL_FROM
+    msg['From'] = FROM
     msg['To'] = to_address
 
-    with smtplib.SMTP(PYTHON_MAIL_SERVER, PYTHON_MAIL_PORT) as server:
+    with smtplib.SMTP(SERVER, PORT) as server:
         server.starttls()
-        server.login(PYTHON_MAIL_FROM, PYTHON_MAIL_PASS)
-        server.sendmail(PYTHON_MAIL_FROM, to_address, msg.as_string())
+        server.login(FROM, PASS)
+        server.sendmail(FROM, to_address, msg.as_string())
         print(f"Email sent to {to_address}")
 
 def distance(position1, position2):
@@ -63,10 +60,10 @@ while True:
     current_time = str(datetime.now())[11:19]
     is_dark = compare(current_time, sunrise_time) or compare(sunset_time, current_time)
     if dist_mi < 100 and is_dark:
-        PYTHON_MAIL_SUBJECT = "Look up"
-        PYTHON_MAIL_BODY = "The ISS is currently overhead! You are within 100 miles of it.\n\n" \
+        SUBJECT = "Look up"
+        BODY = "The ISS is currently overhead! You are within 100 miles of it.\n\n" \
                         "Check out the live feed at https://www.nasa.gov/nasalive\n\n"
         try:
-            send_email(PYTHON_MAIL_TO, PYTHON_MAIL_SUBJECT, PYTHON_MAIL_BODY)
+            send_email(TO, SUBJECT, BODY)
         except Exception as e:
-            print(f"Failed to send email to {PYTHON_MAIL_TO}: {e}")
+            print(f"Failed to send email to {TO}: {e}")

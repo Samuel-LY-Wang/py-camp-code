@@ -192,5 +192,8 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
-# just a testing file, please ignore
+
+# ignore the test file
 test.py
+# ignore the config file
+config.py

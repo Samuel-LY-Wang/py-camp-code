@@ -37,6 +37,7 @@ class QuizInterface:
     def update_question(self):
         q_text = self.q.next_question()
         if q_text == "You've completed the quiz.":
+            self.canvas.config(bg="white")
             self.canvas.itemconfig(self.question_text, text=q_text)
             self.true_button.config(state="disabled")
             self.false_button.config(state="disabled")

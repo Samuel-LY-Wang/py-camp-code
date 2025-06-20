@@ -4,9 +4,9 @@ import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 import time
-from config import *
+from dotenv import dotenv_values
 
-TO = "samuellywang@gmail.com"
+config=dotenv_values(".env")
 
 def compare(time1, time2):
     fmt = '%H:%M:%S'
@@ -17,13 +17,13 @@ def compare(time1, time2):
 def send_email(to_address, subject, body):
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = FROM
+    msg['From'] = config["FROM"]
     msg['To'] = to_address
 
-    with smtplib.SMTP(SERVER, PORT) as server:
+    with smtplib.SMTP(config["SERVER"], config["PORT"]) as server:
         server.starttls()
-        server.login(FROM, PASS)
-        server.sendmail(FROM, to_address, msg.as_string())
+        server.login(config["FROM"], config["PASS"])
+        server.sendmail(config["FROM"], to_address, msg.as_string())
         print(f"Email sent to {to_address}")
 
 def distance(position1, position2):
@@ -66,4 +66,4 @@ while True:
         try:
             send_email(TO, SUBJECT, BODY)
         except Exception as e:
-            print(f"Failed to send email to {TO}: {e}")
+            print(f"Failed to send email to {config["TO"]}: {e}")

@@ -2,25 +2,25 @@ import requests
 import geocoder
 import smtplib
 from email.mime.text import MIMEText
-from config import *
+from dotenv import dotenv_values
 
 g=geocoder.ip('me')
 [lat,lon]=g.latlng
 
-TO="samuellywang@gmail.com"
-
 EMAIL_EXT="mms.cricketwireless.net"
+
+config=dotenv_values(".env")
 
 def send_email(to_address, subject, body):
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = FROM
+    msg['From'] = config["FROM"]
     msg['To'] = to_address
 
-    with smtplib.SMTP(SERVER, PORT) as server:
+    with smtplib.SMTP(config["SERVER"], config["PORT"]) as server:
         server.starttls()
-        server.login(FROM, PASS)
-        server.sendmail(FROM, to_address, msg.as_string())
+        server.login(config["FROM"], config["PASS"])
+        server.sendmail(config["FROM"], to_address, msg.as_string())
         print(f"Email sent to {to_address}")
 
 #I tried very hard to make texting work, but I just couldn't

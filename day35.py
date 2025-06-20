@@ -1,4 +1,3 @@
-import os
 import requests
 import geocoder
 import smtplib
